@@ -218,8 +218,6 @@ namespace Game
             }
         }
 
-        public override void GravityChangeFinished()
-        {
-        }
+        public override void GravityChangeFinished() { }
     }
 }
