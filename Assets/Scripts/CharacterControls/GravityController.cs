@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -9,12 +10,10 @@ namespace Game
     {
         [SerializeField] private GravityState startGravity;
         [Min(0f)] [SerializeField] private float gravityChangeTime;
+        [SerializeField] private List<IGravityObserver> gravityObservers;
         
         private MovementController _movement;
         private GravityState _currentGravity = GravityState.None;
-
-        public event Action<GravityState, GravityState> GravityChangeStarted;
-        public event Action GravityChangeFinished;
 
         public float GravityChangeTime => gravityChangeTime;
         public GravityState CurrentGravity => _currentGravity;
@@ -26,12 +25,19 @@ namespace Game
         public async void SetGravity(GravityState gravityState)
         {
             if (_currentGravity == gravityState) return;
-            GravityChangeStarted?.Invoke(_currentGravity, gravityState);
+            foreach (var gravityObserver in gravityObservers)
+            {
+                gravityObserver.GravityChangeStarted(_currentGravity, gravityState);
+            }
             
             await Task.Delay((int) (gravityChangeTime * 1000));
             
             _currentGravity = gravityState;
-            GravityChangeFinished?.Invoke();
+
+            foreach (var gravityObserver in gravityObservers)
+            {
+                gravityObserver.GravityChangeFinished();
+            }
         }
 
         private void OnDrawGizmosSelected()
