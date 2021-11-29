@@ -1,0 +1,15 @@
+{
+    "name": "Inputs",
+    "references": [
+        "GUID:5cbad7dfecd54773b52cbee5cdec220d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -13,12 +12,13 @@ namespace Game
         
         private GravityState _currentGravity = GravityState.None;
 
-        public float GravityChangeTime => gravityChangeTime;
-        public GravityState CurrentGravity => _currentGravity;
-
         private void Start()
         {
-            SetGravity(startGravity);
+            _currentGravity = startGravity;
+            foreach (var gravityObserver in gravityObservers)
+            {
+                gravityObserver.GravityInit(_currentGravity);
+            }
         }
 
         public async void SetGravity(GravityState gravityState)
@@ -26,7 +26,7 @@ namespace Game
             if (_currentGravity == gravityState) return;
             foreach (var gravityObserver in gravityObservers)
             {
-                gravityObserver.GravityChangeStarted(_currentGravity, gravityState);
+                gravityObserver.GravityChangeStarted(_currentGravity, gravityState, gravityChangeTime);
             }
             
             await Task.Delay((int) (gravityChangeTime * 1000));
