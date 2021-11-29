@@ -9,6 +9,8 @@ namespace Game
         private CharacterController _character;
         private Vector3 _displacement;
 
+        public bool Grounded => _character.isGrounded;
+
         private void Awake()
         {
             _character = GetComponent<CharacterController>();

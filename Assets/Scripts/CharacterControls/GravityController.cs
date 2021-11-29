@@ -5,18 +5,17 @@ using UnityEngine;
 
 namespace Game
 {
-    [RequireComponent(typeof(MovementController))]
     public class GravityController : MonoBehaviour
     {
         [SerializeField] private GravityState startGravity;
         [Min(0f)] [SerializeField] private float gravityChangeTime;
-        [SerializeField] private List<IGravityObserver> gravityObservers;
+        [SerializeField] private List<GravityObserver> gravityObservers;
         
-        private MovementController _movement;
         private GravityState _currentGravity = GravityState.None;
 
         public float GravityChangeTime => gravityChangeTime;
         public GravityState CurrentGravity => _currentGravity;
+
         private void Start()
         {
             SetGravity(startGravity);
