@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -19,6 +20,17 @@ namespace Game
             {
                 gravityObserver.GravityInit(_currentGravity);
             }
+        }
+
+        // Update for debug
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.V)) SetGravity(GravityState.White);
+            if(Input.GetKeyDown(KeyCode.Y)) SetGravity(GravityState.Yellow);
+            if(Input.GetKeyDown(KeyCode.G)) SetGravity(GravityState.Green);
+            if(Input.GetKeyDown(KeyCode.R)) SetGravity(GravityState.Red);
+            if(Input.GetKeyDown(KeyCode.O)) SetGravity(GravityState.Orange);
+            if(Input.GetKeyDown(KeyCode.B)) SetGravity(GravityState.Blue);
         }
 
         public async void SetGravity(GravityState gravityState)

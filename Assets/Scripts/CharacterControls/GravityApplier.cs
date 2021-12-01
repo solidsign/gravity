@@ -6,18 +6,21 @@ namespace Game
     [RequireComponent(typeof(GravityController), typeof(MovementController))]
     public class GravityApplier : GravityObserver
     {
-        [SerializeField] private float gravityForce; 
-        private MovementController _movement;
+        [SerializeField] private float gravityAcceleration;
+        private MovementController _mover;
         private Vector3 _down;
+        private float _velocity;
 
         private void Awake()
         {
-            _movement = GetComponent<MovementController>();
+            _mover = GetComponent<MovementController>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            _movement.Move(gravityForce * Time.fixedDeltaTime * _down);
+            if (_mover.Grounded) _velocity = 0;
+            _velocity += Time.deltaTime * gravityAcceleration;
+            _mover.Move(_velocity * _down);
         }
 
         public override void GravityInit(GravityState gravityState)
@@ -66,6 +69,7 @@ namespace Game
         
         public override void GravityChangeStarted(GravityState prevState, GravityState newState, float gravityChangeTime)
         {
+            _velocity = 0;
             UpdateAxisBasis(newState);
         }
 
