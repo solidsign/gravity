@@ -111,7 +111,8 @@ namespace Game
             UpdateAxisBasis(newState);
             AdditionalRotation(prevState, newState);
             horizontalRotationBody.DOKill();
-            horizontalRotationBody.DORotateQuaternion(Quaternion.LookRotation(Forward, _up), gravityChangeTime);
+            horizontalRotationBody.DOLookAt(transform.position + Forward, gravityChangeTime, up: _up)
+                .SetEase(Ease.OutSine);
         }
 
         // Can be improved
