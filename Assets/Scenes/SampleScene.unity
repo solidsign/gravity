@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  runSpeed: 30
   jumpCurve:
     serializedVersion: 2
     m_Curve: []
