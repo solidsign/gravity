@@ -74,5 +74,17 @@ namespace Game
         }
 
         public override void GravityChangeFinished() { }
+
+        public void JumpStarted()
+        {
+            _velocity = 0f;
+            enabled = false;
+        }
+
+        public void JumpFinished()
+        {
+            _velocity = 0f;
+            enabled = true;
+        }
     }
 }

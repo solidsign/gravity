@@ -1,20 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Game
 {
-    [RequireComponent(typeof(MovementController))]
+    [RequireComponent(typeof(MovementController), typeof(JumpHandler))]
     public class PlayerMovement : GravityObserver
     {
         [Header("Run")] [SerializeField] private float speed;
         [SerializeField] private float runSpeed;
-        [Header("Jump")] [SerializeField] private AnimationCurve jumpCurve;
-        [SerializeField] private float jumpHeight;
-        [SerializeField] private float jumpTime;
+        [SerializeField] private Effect runEffect;
+        
         private MovementController _mover;
+        private JumpHandler _jumper;
         private bool _running = false;
+        private Coroutine _jumping;
         private void Awake()
         {
             _mover = GetComponent<MovementController>();
+            _jumper = GetComponent<JumpHandler>();
         }
 
         private void Update()
@@ -26,10 +29,21 @@ namespace Game
             if (Input.GetKey(KeyCode.W))
             {
                 displacement = transform.forward;
+
+                switch (_running)
+                {
+                    case false when Input.GetKey(KeyCode.LeftShift):
+                        runEffect.ToggleOn();
+                        break;
+                    case true when !Input.GetKey(KeyCode.LeftShift):
+                        runEffect.ToggleOff();
+                        break;
+                }
                 _running = Input.GetKey(KeyCode.LeftShift);
             }
             else
             {
+                if(_running) runEffect.ToggleOff();
                 _running = false;
             }
             
@@ -56,10 +70,9 @@ namespace Game
             
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                
+                _jumper.StartJump();
             }
         }
-
         public override void GravityInit(GravityState gravityState)
         {
         }
@@ -68,7 +81,7 @@ namespace Game
             float gravityChangeTime)
         {
             enabled = false;
-            StopAllCoroutines();
+            _jumper.InterruptJump();
         }
 
         public override void GravityChangeFinished()

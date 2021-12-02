@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3024462702609968266}
   m_Layer: 8
   m_Name: White
-  m_TagString: Wall
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8105158096183363988}
   m_Layer: 8
   m_Name: Red
-  m_TagString: Wall
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 2371521465387865438}
   m_Layer: 8
   m_Name: Blue
-  m_TagString: Wall
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 8857093646665798960}
   m_Layer: 8
   m_Name: Orange
-  m_TagString: Wall
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 829702200237396509}
   m_Layer: 8
   m_Name: Green
-  m_TagString: Wall
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 6080139790761428014}
   m_Layer: 8
   m_Name: Basic Box
-  m_TagString: Wall
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 2563702280572352738}
   m_Layer: 8
   m_Name: Yellow
-  m_TagString: Wall
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

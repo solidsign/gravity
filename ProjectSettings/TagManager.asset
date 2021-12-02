@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Ground
   - Wall
   layers:
   - Default
@@ -14,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - Wall
+  - Ground
   - 
   - 
   - 
@@ -42,6 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Wall
+  - name: Ground
     uniqueID: 1611820867
     locked: 0
