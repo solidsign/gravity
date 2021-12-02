@@ -21,7 +21,7 @@ namespace Game
             {
                 _hAngle = value;
                 _hAngle %=360;
-                _hAngle= _hAngle>180 ? _hAngle-360 : _hAngle;
+                _hAngle = _hAngle > 180 ? _hAngle - 360 : _hAngle;
             }
         }
 
@@ -31,7 +31,12 @@ namespace Game
 
         private Vector3 _up;
 
-        private Vector3 Forward => _xAxis * Mathf.Cos(_hAngle) + _yAxis * Mathf.Sin(_hAngle);
+        private Vector3 Forward => _xAxis * Mathf.Cos(_hAngle * Mathf.Deg2Rad) + _yAxis * Mathf.Sin(_hAngle * Mathf.Deg2Rad);
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.X)) Debug.Log(_hAngle);
+        }
 
         public void RotateHorizontally(float angle)
         {
@@ -46,7 +51,11 @@ namespace Game
         }
         private void ReverseXAxis()
         {
-            HAngle = _hAngle - 180;
+            HAngle = 180 - _hAngle;
+        }
+        private void ReverseYAxis()
+        {
+            HAngle *= -1;
         }
 
         public override void GravityInit(GravityState gravityState)
@@ -115,7 +124,6 @@ namespace Game
                 .SetEase(Ease.OutSine);
         }
 
-        // Can be improved
         private void AdditionalRotation(GravityState prevState, GravityState newState)
         {
             switch (prevState)
@@ -124,12 +132,12 @@ namespace Game
                 {
                     switch (newState)
                     {
-                        case GravityState.Orange:
-                            HAngle += 180;
-                            return;
-                        case GravityState.Yellow:
-                            ReverseXAxis();
-                            return;
+                       case GravityState.Yellow:
+                           ReverseXAxis();
+                           return;
+                       case GravityState.Orange:
+                           HAngle += 180;
+                           return;
                     }
                     break;
                 }
@@ -137,14 +145,14 @@ namespace Game
                 {
                     switch (newState)
                     {
-                        case GravityState.Green:
-                            ReverseXAxis();
-                            return;
                         case GravityState.Red:
-                            HAngle -= 90;
+                            HAngle += 90;
                             return;
                         case GravityState.Orange:
-                            HAngle -= 90;
+                            HAngle += 90;
+                            return;
+                        case GravityState.Green:
+                            ReverseXAxis();
                             return;
                     }
                     break;
@@ -153,17 +161,17 @@ namespace Game
                 {
                     switch (newState)
                     {
-                        case GravityState.Blue:
-                            HAngle += 90;
-                            return;
-                        case GravityState.Green:
-                            HAngle -= 90;
-                            return;
                         case GravityState.Yellow:
                             HAngle += 180;
                             return;
                         case GravityState.Orange:
                             ReverseXAxis();
+                            return;
+                        case GravityState.Green:
+                            HAngle += 90;
+                            return;
+                        case GravityState.Blue:
+                            HAngle -= 90;
                             return;
                     }
                     break;
@@ -185,14 +193,14 @@ namespace Game
                 {
                     switch (newState)
                     {
-                        case GravityState.Blue:
-                            ReverseXAxis();
+                        case GravityState.Orange:
+                            HAngle -= 90;
                             return;
                         case GravityState.Red:
-                            HAngle += 90;
+                            HAngle -= 90;
                             return;
-                        case GravityState.Orange:
-                            HAngle += 90;
+                        case GravityState.Blue:
+                            ReverseXAxis();
                             return;
                     }
                     break;
@@ -204,14 +212,14 @@ namespace Game
                         case GravityState.White:
                             HAngle += 180;
                             return;
-                        case GravityState.Blue:
-                            HAngle += 90;
-                            return;
-                        case GravityState.Green:
-                            HAngle -= 90;
-                            return;
                         case GravityState.Red:
                             ReverseXAxis();
+                            return;
+                        case GravityState.Green:
+                            HAngle += 90;
+                            return;
+                        case GravityState.Blue:
+                            HAngle -= 90;
                             return;
                     }
                     break;

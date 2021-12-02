@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209c2cb4a51847ebb5e20095a88b6ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityX: 0.05
+  sensitivityX: 2
   sensitivityY: 2
 --- !u!114 &807038509
 MonoBehaviour:
@@ -564,9 +564,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 844267661}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1063,7 +1063,7 @@ PrefabInstance:
     - target: {fileID: 6080139790761428014, guid: e81df78dd7c6aa244b2b025925ad460e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.599376
+      value: 8.6
       objectReference: {fileID: 0}
     - target: {fileID: 6080139790761428014, guid: e81df78dd7c6aa244b2b025925ad460e,
         type: 3}
@@ -1073,7 +1073,7 @@ PrefabInstance:
     - target: {fileID: 6080139790761428014, guid: e81df78dd7c6aa244b2b025925ad460e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.865025
+      value: -14.3
       objectReference: {fileID: 0}
     - target: {fileID: 6080139790761428014, guid: e81df78dd7c6aa244b2b025925ad460e,
         type: 3}
