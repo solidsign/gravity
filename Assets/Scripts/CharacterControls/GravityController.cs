@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Game
         [SerializeField] private List<GravityObserver> gravityObservers;
         
         private GravityState _currentGravity = GravityState.None;
-
+        private Coroutine _setGravity;
         private void Start()
         {
             _currentGravity = startGravity;
@@ -25,23 +26,37 @@ namespace Game
         // Update for debug
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.V)) SetGravity(GravityState.White);
-            if(Input.GetKeyDown(KeyCode.Y)) SetGravity(GravityState.Yellow);
-            if(Input.GetKeyDown(KeyCode.G)) SetGravity(GravityState.Green);
-            if(Input.GetKeyDown(KeyCode.R)) SetGravity(GravityState.Red);
-            if(Input.GetKeyDown(KeyCode.O)) SetGravity(GravityState.Orange);
-            if(Input.GetKeyDown(KeyCode.B)) SetGravity(GravityState.Blue);
+            if(Input.GetKeyDown(KeyCode.Alpha1)) SetGravity(GravityState.White);
+            if(Input.GetKeyDown(KeyCode.Alpha2)) SetGravity(GravityState.Yellow);
+            if(Input.GetKeyDown(KeyCode.Alpha3)) SetGravity(GravityState.Green);
+            if(Input.GetKeyDown(KeyCode.Alpha4)) SetGravity(GravityState.Red);
+            if(Input.GetKeyDown(KeyCode.Alpha5)) SetGravity(GravityState.Orange);
+            if(Input.GetKeyDown(KeyCode.Alpha6)) SetGravity(GravityState.Blue);
         }
 
-        public async void SetGravity(GravityState gravityState)
+        public void SetGravity(GravityState gravityState)
         {
-            if (_currentGravity == gravityState) return;
+            if (_setGravity != null)
+            {
+                StopCoroutine(_setGravity);
+                foreach (var gravityObserver in gravityObservers)
+                {
+                    gravityObserver.GravityChangeFinished();
+                }
+            }
+
+            _setGravity = StartCoroutine(SetGravityAsync(gravityState));
+        }
+
+        private IEnumerator SetGravityAsync(GravityState gravityState)
+        {
+            if (_currentGravity == gravityState) yield break;
             foreach (var gravityObserver in gravityObservers)
             {
                 gravityObserver.GravityChangeStarted(_currentGravity, gravityState, gravityChangeTime);
             }
-            
-            await Task.Delay((int) (gravityChangeTime * 1000));
+
+            yield return new WaitForSeconds(gravityChangeTime);
             
             _currentGravity = gravityState;
 
@@ -49,6 +64,8 @@ namespace Game
             {
                 gravityObserver.GravityChangeFinished();
             }
+
+            _setGravity = null;
         }
 
         private void OnDrawGizmosSelected()
