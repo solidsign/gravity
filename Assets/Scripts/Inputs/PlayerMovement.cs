@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
@@ -7,11 +6,12 @@ namespace Game
     public class PlayerMovement : GravityObserver
     {
         [Header("Run")] [SerializeField] private float speed;
+        [SerializeField] private float runSpeed;
         [Header("Jump")] [SerializeField] private AnimationCurve jumpCurve;
         [SerializeField] private float jumpHeight;
         [SerializeField] private float jumpTime;
         private MovementController _mover;
-
+        private bool _running = false;
         private void Awake()
         {
             _mover = GetComponent<MovementController>();
@@ -22,31 +22,41 @@ namespace Game
             if (!Input.anyKey) return;
 
             var displacement = Vector3.zero;
-
+            
             if (Input.GetKey(KeyCode.W))
             {
                 displacement = transform.forward;
+                _running = Input.GetKey(KeyCode.LeftShift);
             }
-
-            if (Input.GetKey(KeyCode.A))
+            else
             {
-                displacement -= transform.right;
+                _running = false;
             }
-
-            if (Input.GetKey(KeyCode.S))
+            
+            if (!_running)
             {
-                displacement -= transform.forward;
+                if (Input.GetKey(KeyCode.A))
+                {
+                    displacement -= transform.right;
+                }
+
+                if (Input.GetKey(KeyCode.S))
+                {
+                    displacement -= transform.forward;
+                }
+
+                if (Input.GetKey(KeyCode.D))
+                {
+                    displacement += transform.right;
+                }
             }
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                displacement += transform.right;
-            }
-
-            _mover.Move(Time.deltaTime * speed * displacement);
+            var currentSpeed = _running ? runSpeed : speed;
+            _mover.Move(currentSpeed * Time.deltaTime * displacement);
             
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                
             }
         }
 
