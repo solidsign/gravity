@@ -217,17 +217,27 @@ PrefabInstance:
     - target: {fileID: 7021044110831409187, guid: 30a57b43f5155ea45b260940632191fa,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9690183
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021044110831409187, guid: 30a57b43f5155ea45b260940632191fa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021044110831409187, guid: 30a57b43f5155ea45b260940632191fa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7021044110831409187, guid: 30a57b43f5155ea45b260940632191fa,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.24698919
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7021044110831409187, guid: 30a57b43f5155ea45b260940632191fa,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 28.599
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30a57b43f5155ea45b260940632191fa, type: 3}
@@ -355,7 +365,7 @@ MonoBehaviour:
     type: 3}
   nextBlobOffset: {x: 0, y: 20}
   showAlpha: 1
-  hideAlpha: 0.09
+  hideAlpha: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newFieldOfView: 100
-  toggleTime: 0.2
+  toggleTime: 0.4
 --- !u!114 &807038513
 MonoBehaviour:
   m_ObjectHideFlags: 0

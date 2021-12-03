@@ -21,7 +21,7 @@ namespace Game
             _cam.DOKill();
             _cam.DOFieldOfView(newFieldOfView, toggleTime)
                 .SetAutoKill()
-                .SetEase(Ease.InOutSine);
+                .SetEase(Ease.InSine);
         }
 
         public override void ToggleOff()
@@ -29,7 +29,7 @@ namespace Game
             _cam.DOKill();
             _cam.DOFieldOfView(_defaultFieldOfView, toggleTime)
                 .SetAutoKill()
-                .SetEase(Ease.InOutSine);
+                .SetEase(Ease.InSine);
         }
     }
 }
