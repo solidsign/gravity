@@ -7,6 +7,7 @@ namespace Game
     public class GravityApplier : GravityObserver
     {
         [SerializeField] private float gravityAcceleration;
+        [SerializeField] private float onWallGravityVelocity;
         private MovementController _mover;
         private Vector3 _down;
         private float _velocity;
@@ -18,8 +19,14 @@ namespace Game
 
         private void Update()
         {
-            if (_mover.Grounded) _velocity = 0;
-            _velocity += Time.deltaTime * gravityAcceleration;
+            if (_mover.Grounded)
+            {
+                _velocity = onWallGravityVelocity * Time.deltaTime;
+            }
+            else
+            {
+                _velocity += Time.deltaTime * gravityAcceleration;
+            }
             _mover.Move(_velocity * _down);
         }
 
