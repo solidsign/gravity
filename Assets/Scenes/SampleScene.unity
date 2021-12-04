@@ -470,9 +470,9 @@ GameObject:
   - component: {fileID: 742189513}
   - component: {fileID: 742189512}
   - component: {fileID: 742189511}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 807038511}
   - component: {fileID: 807038512}
   - component: {fileID: 807038513}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -585,8 +585,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807038503}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -7.3, z: -2.52}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 742189514}
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f698d1d1c714735bfbe8f250d46b878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalRotationBody: {fileID: 807038504}
+  horizontalRotationBody: {fileID: 0}
   verticalRotationBody: {fileID: 963194228}
   minV: -80
   maxV: 80
@@ -714,7 +714,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newFieldOfView: 100
-  toggleTime: 0.4
+  toggleOnTime: 1
+  toggleOffTime: 0.2
 --- !u!114 &807038513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,9 +752,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpHeight: 5
+  jumpHeight: 6
   jumpTime: 0.4
-  jumpReloadTime: 3
+  wallJumpCheckDistance: 0.6
+  groundCheckDistance: 1.31
+  wallJumpMultiplier: 3
+  jumpReloadTime: 2
   jumpEffect: {fileID: 0}
   jumpsAmount: 4
   _jumpStaminaUI: {fileID: 522291492}
@@ -809,7 +813,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
