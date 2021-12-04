@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c077a6f38fb7aec4288caf4defbc5fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInWalkMode: 1
+  isInWalkMode: 0
   maxFloorAngle: 45
   maxStepHeight: 0.3
   canClimbSteepSlope: 0
@@ -736,15 +736,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpHeight: 6
+  jumpHeight: 5
   jumpTime: 0.4
-  wallJumpCheckDistance: 0.6
-  groundCheckDistance: 1.31
-  wallJumpMultiplier: 3
-  jumpReloadTime: 2
+  wallJumpMultiplier: 1.5
   jumpEffect: {fileID: 0}
-  jumpsAmount: 4
-  _jumpStaminaUI: {fileID: 522291492}
 --- !u!114 &807038514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -854,7 +849,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 80
   orthographic: 0
