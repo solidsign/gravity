@@ -82,6 +82,8 @@ namespace Game
         {
             enabled = false;
             _jumper.InterruptJump();
+            runEffect.ToggleOff();
+            _running = false;
         }
 
         public override void GravityChangeFinished()

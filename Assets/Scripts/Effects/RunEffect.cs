@@ -6,7 +6,8 @@ namespace Game
     public class RunEffect : Effect
     {
         [SerializeField] private float newFieldOfView;
-        [SerializeField] private float toggleTime;
+        [SerializeField] private float toggleOnTime;
+        [SerializeField] private float toggleOffTime;
         private Camera _cam;
         private float _defaultFieldOfView;
 
@@ -19,15 +20,15 @@ namespace Game
         public override void ToggleOn()
         {
             _cam.DOKill();
-            _cam.DOFieldOfView(newFieldOfView, toggleTime)
+            _cam.DOFieldOfView(newFieldOfView, toggleOnTime)
                 .SetAutoKill()
-                .SetEase(Ease.InSine);
+                .SetEase(Ease.InOutSine);
         }
 
         public override void ToggleOff()
         {
             _cam.DOKill();
-            _cam.DOFieldOfView(_defaultFieldOfView, toggleTime)
+            _cam.DOFieldOfView(_defaultFieldOfView, toggleOffTime)
                 .SetAutoKill()
                 .SetEase(Ease.InSine);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Game
         
         private float _hAngle = 0;
         private float _vRotation = 0;
+        private Coroutine _rotate = null; 
         private float HAngle
         {
             get => _hAngle;
@@ -52,10 +54,6 @@ namespace Game
         private void ReverseXAxis()
         {
             HAngle = 180 - _hAngle;
-        }
-        private void ReverseYAxis()
-        {
-            HAngle *= -1;
         }
 
         public override void GravityInit(GravityState gravityState)
@@ -117,11 +115,25 @@ namespace Game
 
         public override void GravityChangeStarted(GravityState prevState, GravityState newState, float gravityChangeTime)
         {
+            if (_rotate != null)
+            {
+                StopCoroutine(_rotate);
+                horizontalRotationBody.DOKill();
+            }
+
+            _rotate = StartCoroutine(Rotate(prevState, newState, gravityChangeTime));
+        }
+
+        private IEnumerator Rotate(GravityState prevState, GravityState newState, float gravityChangeTime)
+        {
+            var waitTime = gravityChangeTime / 3f; 
+            yield return new WaitForSeconds(gravityChangeTime / 3f);
             UpdateAxisBasis(newState);
             AdditionalRotation(prevState, newState);
             horizontalRotationBody.DOKill();
-            horizontalRotationBody.DOLookAt(transform.position + Forward, gravityChangeTime, up: _up)
-                .SetEase(Ease.OutSine);
+            horizontalRotationBody.DOLookAt(transform.position + Forward, gravityChangeTime - waitTime, up: _up)
+                .SetEase(Ease.InSine);
+            _rotate = null;
         }
 
         private void AdditionalRotation(GravityState prevState, GravityState newState)
