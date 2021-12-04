@@ -1,26 +1,65 @@
 ﻿using System.Collections.Generic;
+using MenteBacata.ScivoloCharacterController;
 using UnityEngine;
 
 namespace Game
 {
-    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(CharacterMover))]
     public class MovementController : MonoBehaviour
     {
-        private CharacterController _character;
+        private CharacterMover _mover;
         private Vector3 _displacement;
-        private List<ContactPoint> _contacts;
-        private bool _grounded = false;
+        private MoveContact[] _contacts;
+        private int _n;
 
-        public bool Grounded => _grounded;
+        public bool HasContacts() => _n > 0;
+        
+        public bool OnWall(Vector3 down)
+        {
+            for (int i = 0; i < _n; i++)
+            {
+                if (Mathf.Abs(Vector3.Dot(down, _contacts[i].normal)) < 0.3f) return true;
+            }
+
+            return false;
+        }
+
+        public void Grounded(Vector3 down, out Vector3 sumNormal, out bool onFloor, out bool onWall)
+        {
+            var n = 0;
+            var s = new Vector3();
+            onFloor = false;
+            onWall = false;
+            
+            for (int i = 0; i < _n; i++)
+            {
+                var dot = Vector3.Dot(down, _contacts[i].normal);
+                if (Mathf.Abs(dot) < 0.3f)
+                {
+                    s += _contacts[i].normal;
+                    ++n;
+                    onWall = true;
+                }
+                else if (dot > 0.3f) onFloor = true;
+            }
+
+            if (n == 0)
+            {
+                sumNormal = Vector3.zero;
+                return;
+            }
+            sumNormal = s.normalized;
+        }
         
         private void Awake()
         {
-            _character = GetComponent<CharacterController>();
+            _mover = GetComponent<CharacterMover>();
+            _contacts = new MoveContact[6];
         }
 
         private void LateUpdate()
         {
-            _grounded = _character.Move(_displacement) != CollisionFlags.None;
+            _mover.Move(_displacement, _contacts, out _n);
             _displacement = Vector3.zero;
         }
         

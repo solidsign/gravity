@@ -78,7 +78,7 @@ namespace Game
 */
 
             #region GroundVariant
-            if (!_mover.Grounded) return;
+            if (!_mover.HasContacts()) return;
             #endregion
             InterruptJump();
 
@@ -89,29 +89,20 @@ namespace Game
 
         private void CalculateJumpDirection()
         {
-            if (Physics.Raycast(transform.position, -transform.up * groundCheckDistance, groundCheckDistance,
-                _wallLayerMask))
+            _mover.Grounded(-transform.up, out var sumNormal, out var onFloor, out var onWall);
+            if (onFloor)
             {
                 _jumpDirection = transform.up;
                 return;
             }
-            
-            var hits = new RaycastHit[4];
-            var ray = new Ray(transform.position, transform.position + transform.up * Single.Epsilon);
-            int n = Physics.SphereCastNonAlloc(ray, wallJumpCheckDistance, hits, Single.Epsilon, _wallLayerMask);
-            var s = new Vector3();
 
-            if (0 < n)
+            if (onWall)
             {
-                for (int i = 0; i < n; i++)
-                {
-                    s += hits[i].normal;
-                }
-
-                if (n > 1) s.Normalize();
-                _jumpDirection = s * wallJumpMultiplier + transform.up;
+                _jumpDirection = sumNormal * wallJumpMultiplier + transform.up;
+                _jumpDirection.Normalize();
                 return;
             }
+
             _jumpDirection = transform.up;
         }
 
@@ -139,7 +130,7 @@ namespace Game
                 _mover.Move(_jumpDirection * delta);
                 lastEval = eval;
                 yield return null;
-                if (_mover.Grounded)
+                if (_mover.HasContacts())
                 {
                     _jumping = null;
                     _gravity.JumpFinished();

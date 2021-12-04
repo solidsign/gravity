@@ -3,7 +3,8 @@
     "references": [
         "DOTween.Modules",
         "Effects",
-        "UI"
+        "UI",
+        "ScivoloCharacterController"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
