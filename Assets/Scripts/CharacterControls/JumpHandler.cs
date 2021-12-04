@@ -9,7 +9,8 @@ namespace Game
         [Header("Jump")] [SerializeField] private AnimationCurve jumpCurve;
         [SerializeField] private float jumpHeight;
         [SerializeField] private float jumpTime;
-        [SerializeField] private float wallJumpMultiplier;
+        [SerializeField] private float wallJumpSideMultiplier;
+        [SerializeField] private float wallJumpUpMultiplier;
         [SerializeField] private Effect jumpEffect;
         
         private MovementController _mover;
@@ -45,7 +46,7 @@ namespace Game
 
             if (onWall)
             {
-                _jumpDirection = sumNormal * wallJumpMultiplier + transform.up;
+                _jumpDirection = sumNormal * wallJumpSideMultiplier + transform.up * wallJumpUpMultiplier;
                 return;
             }
 
