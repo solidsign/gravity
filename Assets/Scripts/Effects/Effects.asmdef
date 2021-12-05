@@ -1,7 +1,8 @@
 {
     "name": "Effects",
     "references": [
-        "GUID:da0280e18db4f6e4abbd7647ebcb5da0"
+        "GUID:da0280e18db4f6e4abbd7647ebcb5da0",
+        "GUID:1e3746289d624d8899b6e9f4e053f750"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

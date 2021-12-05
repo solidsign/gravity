@@ -1,11 +1,11 @@
 {
-    "name": "CharacterControls",
+    "name": "Weapons",
     "references": [
-        "DOTween.Modules",
-        "Effects",
-        "UI",
-        "ScivoloCharacterController",
-        "Core"
+        "GUID:5cbad7dfecd54773b52cbee5cdec220d",
+        "GUID:fc1185d12e4105e4cb15d53089a44dde",
+        "GUID:3b6f26b0ac494ea4e832a5e2c109573a",
+        "GUID:1e3746289d624d8899b6e9f4e053f750",
+        "GUID:da0280e18db4f6e4abbd7647ebcb5da0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

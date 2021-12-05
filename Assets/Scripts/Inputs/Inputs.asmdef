@@ -1,11 +1,9 @@
 {
-    "name": "CharacterControls",
+    "name": "Inputs",
     "references": [
-        "DOTween.Modules",
-        "Effects",
-        "UI",
-        "ScivoloCharacterController",
-        "Core"
+        "GUID:5cbad7dfecd54773b52cbee5cdec220d",
+        "GUID:fc1185d12e4105e4cb15d53089a44dde",
+        "GUID:1e3746289d624d8899b6e9f4e053f750"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
