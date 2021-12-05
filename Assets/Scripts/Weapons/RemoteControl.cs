@@ -20,11 +20,6 @@ namespace Game
             colorSetter.Set(statesOrder[0]);
         }
 
-        private void Update()
-        {
-            if(Input.GetMouseButtonDown(0)) Shoot();
-        }
-
         public override void Shoot()
         {
             if (!_loaded) return;
