@@ -6,6 +6,9 @@ using UnityEngine;
 namespace Game
 {
     public class RemoteControl : Weapon{
+        [Header("How is it viewed")] 
+        [SerializeField] private RemoteControlColorSetter colorSetter;
+        [SerializeField] private PlayableEffect shootEffect;
         [Header("Target")]
         [SerializeField] private GravityController gravityController;
         [Header("Allowed Gravity states cycle")]

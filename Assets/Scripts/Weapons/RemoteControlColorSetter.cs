@@ -9,13 +9,12 @@ namespace Game
         [SerializeField] private float changeTime;
 
         private Material _mat;
-        private int i;
         private void Awake()
         {
             _mat = button.sharedMaterial;
         }
 
-        public override void Set(GravityState gravityState)
+        public void Set(GravityState gravityState)
         {
             _mat.DOKill();
             _mat.DOColor(ToColor(gravityState), changeTime);

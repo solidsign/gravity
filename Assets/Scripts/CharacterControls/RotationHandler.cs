@@ -35,11 +35,6 @@ namespace Game
 
         private Vector3 Forward => _xAxis * Mathf.Cos(_hAngle * Mathf.Deg2Rad) + _yAxis * Mathf.Sin(_hAngle * Mathf.Deg2Rad);
 
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.X)) Debug.Log(_hAngle);
-        }
-
         public void RotateHorizontally(float angle)
         {
             HAngle += angle;

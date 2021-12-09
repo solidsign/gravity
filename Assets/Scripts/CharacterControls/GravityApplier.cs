@@ -19,7 +19,12 @@ namespace Game
 
         private void Update()
         {
-            if (_mover.OnWall(_down))
+            _mover.Grounded(_down, out var onFloor, out var onWall);
+            if (onFloor)
+            {
+                _velocity = Time.deltaTime;
+            }
+            else if (onWall)
             {
                 _velocity = onWallGravityVelocity * Time.deltaTime;
             }

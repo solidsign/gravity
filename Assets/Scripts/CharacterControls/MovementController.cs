@@ -24,6 +24,25 @@ namespace Game
             return false;
         }
 
+        public void Grounded(Vector3 down, out bool onFloor, out bool onWall)
+        {
+            onFloor = false;
+            onWall = false;
+            
+            for (int i = 0; i < _n || (onWall && onFloor); i++)
+            {
+                var dot = Vector3.Dot(down, _contacts[i].normal);
+                if (!onWall && Mathf.Abs(dot) < 0.3f)
+                {
+                    onWall = true;
+                }
+                else if (!onFloor && dot > 0.3f)
+                {
+                    onFloor = true;
+                }
+            }
+        }
+
         public void Grounded(Vector3 down, out Vector3 sumNormal, out bool onFloor, out bool onWall)
         {
             var n = 0;

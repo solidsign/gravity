@@ -13,7 +13,6 @@ namespace Game
         [SerializeField] private Color red = Color.red;
         [SerializeField] private Color orange = new Color(1f, 0.61f, 0f);
         [SerializeField] private Color none = Color.gray;
-        public abstract void Set(GravityState gravityState);
 
         protected Color ToColor(GravityState gravityState)
         {
