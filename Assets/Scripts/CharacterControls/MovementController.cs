@@ -10,13 +10,13 @@ namespace Game
         private CharacterMover _mover;
         private Vector3 _displacement;
         private MoveContact[] _contacts;
-        private int _n;
+        private int _contactsAmount;
 
-        public bool HasContacts() => _n > 0;
+        public bool HasContacts() => _contactsAmount > 0;
         
         public bool OnWall(Vector3 down)
         {
-            for (int i = 0; i < _n; i++)
+            for (int i = 0; i < _contactsAmount; i++)
             {
                 if (Mathf.Abs(Vector3.Dot(down, _contacts[i].normal)) < 0.3f) return true;
             }
@@ -29,7 +29,7 @@ namespace Game
             onFloor = false;
             onWall = false;
             
-            for (int i = 0; i < _n || (onWall && onFloor); i++)
+            for (int i = 0; i < _contactsAmount || (onWall && onFloor); i++)
             {
                 var dot = Vector3.Dot(down, _contacts[i].normal);
                 if (!onWall && Mathf.Abs(dot) < 0.3f)
@@ -45,29 +45,22 @@ namespace Game
 
         public void Grounded(Vector3 down, out Vector3 sumNormal, out bool onFloor, out bool onWall)
         {
-            var n = 0;
             var s = new Vector3();
             onFloor = false;
             onWall = false;
             
-            for (int i = 0; i < _n; i++)
+            for (int i = 0; i < _contactsAmount; i++)
             {
                 var dot = Vector3.Dot(down, _contacts[i].normal);
                 if (Mathf.Abs(dot) < 0.3f)
                 {
                     s += _contacts[i].normal;
-                    ++n;
                     onWall = true;
                 }
                 else if (dot > 0.3f) onFloor = true;
             }
 
-            if (n == 0)
-            {
-                sumNormal = Vector3.zero;
-                return;
-            }
-            sumNormal = s.normalized;
+            sumNormal = onWall ? Vector3.zero : s.normalized;
         }
         
         private void Awake()
@@ -78,7 +71,7 @@ namespace Game
 
         private void LateUpdate()
         {
-            _mover.Move(_displacement, _contacts, out _n);
+            _mover.Move(_displacement, _contacts, out _contactsAmount);
             _displacement = Vector3.zero;
         }
         

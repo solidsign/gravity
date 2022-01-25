@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Game
@@ -8,28 +9,22 @@ namespace Game
     {
         [SerializeField] private GravityState startGravity;
         [Min(0f)] [SerializeField] private float gravityChangeTime;
-        [SerializeField] private List<GravityObserver> gravityObservers;
         
+        private List<GravityObserver> gravityObservers;
         private GravityState _currentGravity = GravityState.None;
         private Coroutine _setGravity;
         private void Start()
         {
             _currentGravity = startGravity;
-            foreach (var gravityObserver in gravityObservers)
-            {
-                gravityObserver.GravityInit(_currentGravity);
-            }
+
+            InitGravityObservers();
+            
         }
 
-        // Update for debug
-        private void Update()
+        private void InitGravityObservers()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1)) SetGravity(GravityState.White);
-            if(Input.GetKeyDown(KeyCode.Alpha2)) SetGravity(GravityState.Yellow);
-            if(Input.GetKeyDown(KeyCode.Alpha3)) SetGravity(GravityState.Green);
-            if(Input.GetKeyDown(KeyCode.Alpha4)) SetGravity(GravityState.Red);
-            if(Input.GetKeyDown(KeyCode.Alpha5)) SetGravity(GravityState.Orange);
-            if(Input.GetKeyDown(KeyCode.Alpha6)) SetGravity(GravityState.Blue);
+            gravityObservers = GetComponents<GravityObserver>().ToList(); 
+            gravityObservers.ForEach((el) => {if(el.Observing) el.GravityInit(_currentGravity);});
         }
 
         public void SetGravity(GravityState gravityState)
@@ -37,10 +32,7 @@ namespace Game
             if (_setGravity != null)
             {
                 StopCoroutine(_setGravity);
-                foreach (var gravityObserver in gravityObservers)
-                {
-                    gravityObserver.GravityChangeFinished();
-                }
+                gravityObservers.ForEach((el) => el.GravityChangeFinished());
             }
 
             _setGravity = StartCoroutine(SetGravityAsync(gravityState));
@@ -49,19 +41,13 @@ namespace Game
         private IEnumerator SetGravityAsync(GravityState gravityState)
         {
             if (_currentGravity == gravityState) yield break;
-            foreach (var gravityObserver in gravityObservers)
-            {
-                gravityObserver.GravityChangeStarted(_currentGravity, gravityState, gravityChangeTime);
-            }
+            gravityObservers.ForEach((el) => el.GravityChangeStarted(_currentGravity, gravityState, gravityChangeTime));
 
             yield return new WaitForSeconds(gravityChangeTime);
             
             _currentGravity = gravityState;
 
-            foreach (var gravityObserver in gravityObservers)
-            {
-                gravityObserver.GravityChangeFinished();
-            }
+            gravityObservers.ForEach((el) => el.GravityChangeFinished());
 
             _setGravity = null;
         }
