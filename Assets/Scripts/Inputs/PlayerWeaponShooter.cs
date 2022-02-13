@@ -38,7 +38,7 @@ namespace Game
                     _alt1 = false;
                     _alternative1 = null;
                 }
-                
+
                 if (weapon is IAlternative2 alternative2)
                 {
                     _alt2 =true;

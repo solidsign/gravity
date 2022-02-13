@@ -48,8 +48,7 @@ namespace Game
 
         public override void Shoot()
         {
-            if (!_loaded) return;
-            if (_targetFinder.Target == null) return;
+            if (!_loaded || _targetFinder.Target == null) return;
             _targetFinder.Target.SetGravity(statesOrder[_currentState]);
             shootEffect?.Play();
             StartCoroutine(Reload());

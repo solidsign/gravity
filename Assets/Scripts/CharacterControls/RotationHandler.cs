@@ -126,8 +126,7 @@ namespace Game
             UpdateAxisBasis(newState);
             AdditionalRotation(prevState, newState);
             horizontalRotationBody.DOKill();
-            horizontalRotationBody.DOLookAt(transform.position + Forward, gravityChangeTime - waitTime, up: _up)
-                .SetEase(Ease.InSine);
+            horizontalRotationBody.DOLookAt(transform.position + Forward, gravityChangeTime - waitTime - Time.deltaTime, up: _up); // it actually should not contain Time.deltaTime subtraction but it happens that than it has less times bugging and overrotating
             _rotate = null;
         }
 
@@ -234,6 +233,22 @@ namespace Game
             }
         }
 
-        public override void GravityChangeFinished() { }
+        public override void GravityChangeFinished()
+        {
+            RotateHorizontally(Single.Epsilon);
+            RotateVertically(Single.Epsilon);
+            CheckThatRotationWentCorrect();
+        }
+
+        private void CheckThatRotationWentCorrect()
+        {
+            if (Mathf.Abs(Vector3.Angle(horizontalRotationBody.up, _up)) <= Single.Epsilon) return;
+            
+            horizontalRotationBody.rotation = Quaternion.LookRotation(Forward, _up);
+            Debug.Log("Исправил перекрут");
+            
+            if (Mathf.Abs(Vector3.Angle(horizontalRotationBody.up, _up)) <= Single.Epsilon) return;
+            Debug.LogError("Нихуя не получилось");
+        }
     }
 }
