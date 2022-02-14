@@ -23,7 +23,7 @@ namespace Game
             colorSetter.Set(statesOrder[0]);
         }
 
-        public override void Shoot()
+        public override void ChargeShoot()
         {
             if (!_loaded) return;
             gravityController.SetGravity(statesOrder[_currentState]);

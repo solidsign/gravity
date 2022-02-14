@@ -4,7 +4,7 @@ namespace Game
 {
     public abstract class Weapon : MonoBehaviour
     {
-        
-        public abstract void Shoot();
+        public virtual void ChargeShoot(){}
+        public virtual void ReleaseShot(){}
     }
 }

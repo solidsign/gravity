@@ -7,48 +7,35 @@ namespace Game
     {
         [SerializeField] private Weapon weapon;
         private bool _switchable;
-        private bool _alt1;
-        private bool _alt2;
+        private bool _alt1C;
+        private bool _alt2C;
+        private bool _alt1R;
+        private bool _alt2R;
         private ISwitchable _switcher;
-        private IAlternative1 _alternative1;
-        private IAlternative2 _alternative2;
+        private IChargeAlternative1 _chargeAlternative1;
+        private IChargeAlternative2 _chargeAlternative2;
+        private IReleaseAlternative1 _releaseAlternative1;
+        private IReleaseAlternative2 _releaseAlternative2;
         public Weapon Weapon
         {
             set
             {
                 weapon = value;
-                if (weapon is ISwitchable switchable)
-                {
-                    _switchable =true;
-                    _switcher = switchable;
-                }
-                else
-                {
-                    _switchable = false;
-                    _switcher = null;
-                }
+                
+                _switcher = weapon as ISwitchable;
+                _switchable = _switcher != null;
 
-                if (weapon is IAlternative1 alternative1)
-                {
-                    _alt1 =true;
-                    _alternative1 = alternative1;
-                }
-                else
-                {
-                    _alt1 = false;
-                    _alternative1 = null;
-                }
+                _chargeAlternative1 = weapon as IChargeAlternative1;
+                _alt1C = _chargeAlternative1 != null;
 
-                if (weapon is IAlternative2 alternative2)
-                {
-                    _alt2 =true;
-                    _alternative2 = alternative2;
-                }
-                else
-                {
-                    _alt2 = false;
-                    _alternative2 = null;
-                }
+                _chargeAlternative2 = weapon as IChargeAlternative2;
+                _alt2C = _chargeAlternative2 != null;
+
+                _releaseAlternative1 = weapon as IReleaseAlternative1;
+                _alt1R = _releaseAlternative1 != null;
+
+                _releaseAlternative2 = weapon as IReleaseAlternative2;
+                _alt2R = _releaseAlternative2 != null;
             }
         }
 
@@ -59,10 +46,8 @@ namespace Game
 
         private void Update()
         {
-            if(Input.GetMouseButtonDown(0))
-            {
-                weapon.Shoot();
-            }
+            if(Input.GetMouseButtonDown(0)) weapon.ChargeShoot();
+            if(Input.GetMouseButtonUp(0)) weapon.ReleaseShot();
 
             if (_switchable)
             {
@@ -71,14 +56,10 @@ namespace Game
                 _switcher.Switch(scroll > 0f);
             }
 
-            if (_alt1)
-            {
-                if(Input.GetMouseButtonDown(1)) _alternative1.Alternative1();
-            }
-            if (_alt2)
-            {
-                if(Input.GetMouseButtonDown(2)) _alternative2.Alternative2();
-            }
+            if (_alt1C && Input.GetMouseButtonDown(1)) _chargeAlternative1.ChargeAlternative1();
+            if (_alt2C && Input.GetMouseButtonDown(2)) _chargeAlternative2.ChargeAlternative2();
+            if (_alt1R && Input.GetMouseButtonUp(1)) _releaseAlternative1.ReleaseAlternative1();
+            if (_alt2R && Input.GetMouseButtonUp(2)) _releaseAlternative2.ReleaseAlternative2();
         }
     }
 }

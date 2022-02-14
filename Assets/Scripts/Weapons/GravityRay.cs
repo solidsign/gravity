@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game
 {
     [RequireComponent(typeof(Animator))]
-    public class GravityRay : Weapon, ISwitchable, IAlternative1
+    public class GravityRay : Weapon, ISwitchable, IChargeAlternative1
     {
         [Header("How is it viewed")] 
         [SerializeField] private GravityRayCrosshairView crosshairView;
@@ -46,7 +46,7 @@ namespace Game
             crosshairView.Show();
         }
 
-        public override void Shoot()
+        public override void ChargeShoot()
         {
             if (!_loaded || _targetFinder.Target == null) return;
             _targetFinder.Target.SetGravity(statesOrder[_currentState]);
@@ -81,7 +81,7 @@ namespace Game
             Gizmos.DrawRay(position, forward * maxDistance);
         }
 
-        public void Alternative1()
+        public void ChargeAlternative1()
         {
             if(_targetFinder.Target != null) _locked = !_locked;
         }
