@@ -293,7 +293,7 @@ MonoBehaviour:
   rayRadius: 1
   layer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
 --- !u!95 &808047931020749931
 Animator:
   serializedVersion: 3

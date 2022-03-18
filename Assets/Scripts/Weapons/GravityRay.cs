@@ -35,7 +35,7 @@ namespace Game
             _animator.speed = 1f / reloadTime;
         }
 
-        private void Update()
+        private void Update() // TODO: fix locking with LateUpdate
         {
             if (!_locked && !_targetFinder.UpdateTarget())
             {
