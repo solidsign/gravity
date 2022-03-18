@@ -32,6 +32,12 @@ namespace Game
         private Vector3 _yAxis;
 
         private Vector3 _up;
+        
+        public Vector3 XAxis => _xAxis;
+
+        public Vector3 YAxis => _yAxis;
+
+        public Vector3 Up => _up;
 
         private Vector3 Forward => _xAxis * Mathf.Cos(_hAngle * Mathf.Deg2Rad) + _yAxis * Mathf.Sin(_hAngle * Mathf.Deg2Rad);
 
